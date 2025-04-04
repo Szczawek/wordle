@@ -3,11 +3,13 @@ import Table from "./Table.jsx";
 import EndGame from "./EndGame.jsx";
 import "./game.css"
 
-export default function PlayBoard({password}) {
+const std = [... new Array(5)];
+export default function PlayBoard({password, findRandomWord}) {
     const [row,setRow] = useState(0);
     const [complete,setComplete] = useState(false);
     const [status,setStatus] = useState([]);
-   
+    const [table,setTable] = useState(std);
+
     function increseRow(obj) {
         setRow(prev => prev + 1);
         if(row == 4) return setComplete(true);
@@ -21,12 +23,18 @@ export default function PlayBoard({password}) {
             setComplete(true);
         }
     }
+
+    function restartGame() {
+        setComplete(false);
+        setRow(0);
+        setStatus([]);
+        findRandomWord();
+    }
     
     function compareLetters(value) {
         const word = password.split('');
         const inputWord = [...value]
         const obj = {};
-        console.log("start");
         for(let i = 0; i < password.length; i++) {
             const wordLetter = word[i];
             const inpLetter = inputWord[i];
@@ -47,10 +55,10 @@ export default function PlayBoard({password}) {
 
     return <>
         <div className="board">
-            {[... new Array(5)].map((_,index)=> {
+            {table.map((_,index)=> {
                 return <Table complete={complete} status={status} addRow={increseRow} active={row} key={`column-${index}`} id={index}/>
             })}
         </div>
-        {complete && <EndGame password={password}  />}
+        {complete && <EndGame restartGame={restartGame} password={password}  />}
         </>
 }

@@ -9,23 +9,24 @@ const Navigation = lazy(()=>import("./components/Navigation.jsx"));
 export default function App() {
     const [password, setPassword] = useState("");
     useEffect(() => {
-        async function findRandomWord() {
-            try {
-                setPassword("hello");
-            } catch(err) {
-                console.log(err)
-            }
-        }
         findRandomWord();
     },[])
     
+    async function findRandomWord() {
+        try {
+            setPassword("hello");
+        } catch(err) {
+            console.log(err)
+        }
+    }
+
     return <div className="app">
             <BrowserRouter>
                 <Suspense fallback={<Loading/>}>
                     <Routes>
                         <Route element={<Navigation/>}>
                             <Route index element={<Home/>}/>
-                            <Route path="/game" element={<PlayBoard password={password}/>}/>
+                            <Route path="/game" element={<PlayBoard findRandomWord={findRandomWord} password={password}/>}/>
                         </Route>
                      </Routes>
                 </Suspense>

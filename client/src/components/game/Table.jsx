@@ -14,6 +14,16 @@ export default function Table({status,addRow,id,active, complete}) {
        }
     },[current,active])
 
+    
+    useEffect(() => {
+        function clear() {
+            setChar(stdData)
+            setCollection(0);
+            setCurrent(0);
+        }
+        if(!complete) clear()
+    }, [complete])
+
     function writeChar(e) {
         const {value,ariaColIndex} = e.target; 
         const name = ariaColIndex;
