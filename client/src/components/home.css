@@ -1,0 +1,10 @@
+.home {
+    display:grid;
+    place-content:center;
+}
+
+.welcome-container {
+    display:grid;
+    row-gap:1rem;
+    text-align:center;
+}

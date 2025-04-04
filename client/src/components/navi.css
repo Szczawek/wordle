@@ -1,0 +1,8 @@
+.gui {
+    padding: 2rem 4rem;
+}
+.nav-list {
+    display:grid;
+    grid-template-columns: repeat(2, 100px);
+    align-items:center;
+}
