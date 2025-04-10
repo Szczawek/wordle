@@ -3,6 +3,7 @@
     margin:0;
     outline:none;
     border:none;
+    box-sizing: border-box;
 }
 
 a {
@@ -14,6 +15,9 @@ li {
     list-style:none;
 }
 
+input, button {
+display:block;
+}
 .app {
     height:100vh;
     overflow:hidden;

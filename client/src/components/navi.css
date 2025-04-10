@@ -1,8 +1,22 @@
 .gui {
     padding: 2rem 4rem;
+    display:grid;
+    align-items:center;
+    grid-auto-flow:column;
 }
 .nav-list {
     display:grid;
     grid-template-columns: repeat(2, 100px);
     align-items:center;
+}
+
+.warning {
+ text-align: center;
+}
+
+@media (width < 500px) {
+
+    .gui {
+        padding: .5rem 1rem;
+    }
 }

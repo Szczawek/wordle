@@ -14,7 +14,6 @@ export default function Table({status,addRow,id,active, complete}) {
        }
     },[current,active])
 
-    
     useEffect(() => {
         function clear() {
             setChar(stdData)
@@ -24,15 +23,33 @@ export default function Table({status,addRow,id,active, complete}) {
         if(!complete) clear()
     }, [complete])
 
+    function arrowMove(e) {
+        switch(e.key) {
+            case "Backspace":
+                const {value, ariaColIndex} = e.target;
+
+                if(value == "" || value == " ") return; 
+                setCollection(prev => prev - 1);
+
+                if(current != 0) setCurrent(prev => prev - 1)
+                setChar(prev => ({...prev,[ariaColIndex]:""}));
+                break;
+            case "ArrowLeft":
+                if(current <= 0) return;
+                setCurrent(prev => prev - 1);
+            break;
+            case "ArrowRight":
+                if(current >=4) return;
+                setCurrent(prev => prev + 1);
+            break;
+        }
+    }
     function writeChar(e) {
         const {value,ariaColIndex} = e.target; 
         const name = ariaColIndex;
+        if(value === " " || value == "") return;
+    
         setChar(prev => ({...prev,[name]:value}));
-        if(value === "") {
-            setCollection(prev => prev - 1);
-            if(current != 0) setCurrent(prev => prev -1)
-            return;
-        }
         // Collection equal 4 and value different that "" is end of word;
         if(collection == 4) {
             const obj = {...char, [name]:value};
@@ -53,7 +70,7 @@ export default function Table({status,addRow,id,active, complete}) {
             {[... new Array(5)].map((_,index) => {
                 const name = `${id}-${index}`
                 const visClass = !status[id]? "": status[id][index];
-                  return <label onClick={movePosition} ref={id == active && index == current? activeElement: null} className="handler" htmlFor={name} key={name}>
+                  return <label onKeyDown={arrowMove} onClick={movePosition} ref={id == active && index == current? activeElement: null} className="handler" htmlFor={name} key={name}>
                         <input className={visClass} disabled={id == active && !complete? false:true}  aria-colindex={index} value={char[index]} onChange={writeChar} maxLength="1" id={name}  />
                     </label>
             })}

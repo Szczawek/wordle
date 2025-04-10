@@ -1,24 +1,23 @@
 .app {
     position:relative;
+    display:grid;
+    grid-template-rows:50px 1fr;
 }
 .board{
     display:grid;
-    height:100vh;
-    grid-template-rows:repeat(5, 100px);
+    grid-template-rows: repeat(5,100px);
     justify-content:center;
-    align-items:center;
     align-content:center;
 }
 
 .table {
     display:grid;
-    grid-template-columns: repeat(5, 100px);
-    height:100px;
+    max-width:600px;
+    grid-template-columns: repeat(5, minmax(50px, 1fr));
 }
 
 .handler {
     border: 1px solid red;
-    overflow:hidden;
     border-radius: .2rem;
 }
 .table input {
@@ -34,4 +33,14 @@
 
 .include {
     background-color:orange;
+} 
+
+.waiting {
+    height:100%;
+    display:grid;
+    place-content:center;
+}
+.comunicat {
+    text-align:center;
+    font-size:2rem;
 }

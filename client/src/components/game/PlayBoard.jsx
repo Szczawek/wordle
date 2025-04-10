@@ -4,7 +4,7 @@ import EndGame from "./EndGame.jsx";
 import "./game.css"
 
 const std = [... new Array(5)];
-export default function PlayBoard({password, findRandomWord}) {
+export default function PlayBoard({password,loading, findRandomWord}) {
     const [row,setRow] = useState(0);
     const [complete,setComplete] = useState(false);
     const [status,setStatus] = useState([]);
@@ -52,6 +52,8 @@ export default function PlayBoard({password, findRandomWord}) {
         }
         setStatus(prev => [...prev, obj]);
     }
+
+    if(loading) return <div className="waiting"><p className="comunicat">Finding password</p></div>
 
     return <>
         <div className="board">

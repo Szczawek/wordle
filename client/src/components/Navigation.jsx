@@ -1,6 +1,6 @@
 import {Outlet,NavLink} from "react-router";
 import "./navi.css"
-export default function Navigation() {
+export default function Navigation({offline}) {
     return <>
             <header className="gui">
                 <nav className="navigation">
@@ -13,6 +13,7 @@ export default function Navigation() {
                         </li>
                     </ul>
                 </nav>
+                {offline && <h2 className="warning">Game is offline</h2>}
             </header>
             <Outlet/>
         </>
