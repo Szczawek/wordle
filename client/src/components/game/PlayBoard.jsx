@@ -57,9 +57,11 @@ export default function PlayBoard({password,loading, findRandomWord}) {
 
     return <>
         <div className="board">
+            <div className="container">
             {table.map((_,index)=> {
                 return <Table complete={complete} status={status} addRow={increseRow} active={row} key={`column-${index}`} id={index}/>
             })}
+            </div>
         </div>
         {complete && <EndGame restartGame={restartGame} password={password}  />}
         </>

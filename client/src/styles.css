@@ -16,9 +16,15 @@ li {
 }
 
 input, button {
-display:block;
+display:block; 
 }
+
 .app {
+    background-color: #0a0314;
+    color: white;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 300;
+    font-style: normal;
     height:100vh;
     overflow:hidden;
 }

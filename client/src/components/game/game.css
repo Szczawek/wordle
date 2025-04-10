@@ -3,11 +3,22 @@
     display:grid;
     grid-template-rows:50px 1fr;
 }
-.board{
+
+.board {
+    display:grid;
+    place-content:center;
+}
+.container {
+background: rgb(195,42,34);
+background: -moz-linear-gradient(170deg, rgba(195,42,34,1) 0%, rgba(76,45,253,1) 100%);
+background: -webkit-linear-gradient(170deg, rgba(195,42,34,1) 0%, rgba(76,45,253,1) 100%);
+background: linear-gradient(170deg, rgba(195,42,34,1) 0%, rgba(76,45,253,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#c32a22",endColorstr="#4c2dfd",GradientType=1);
     display:grid;
     grid-template-rows: repeat(5,100px);
     justify-content:center;
     align-content:center;
+    box-shadow: 40px 40px 2rem black;
 }
 
 .table {
@@ -17,22 +28,25 @@
 }
 
 .handler {
-    border: 1px solid red;
-    border-radius: .2rem;
+    background-color: transparent;
+    border: 2px solid #fc00fb;;
 }
 .table input {
+    background-color: transparent;
+    color:white;
+    font-weight: bold;
     max-width:100%;
     height: 100%;
     font-size:2rem;
     text-align:center;
 }
 
-.correct {
-    background-color:green;
+input.correct {
+    background-color:#00fc21
 }
 
-.include {
-    background-color:orange;
+input.include {
+    background-color:#fccf00;
 } 
 
 .waiting {
