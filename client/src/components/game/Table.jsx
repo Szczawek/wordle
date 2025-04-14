@@ -6,12 +6,14 @@ export default function Table({status,addRow,id,active, complete}) {
     const [char,setChar] = useState(stdData);
     const [collection, setCollection] = useState(0);
     const activeElement = useRef(null);
+    const [tabIsOn, setTabIsOn] = useState(false);
     const [current, setCurrent] = useState(0); 
     
     useEffect(() => {
-       if(activeElement.current) {
+       if(activeElement.current && !tabIsOn) {
             activeElement.current.focus();
        }
+        if(tabIsOn) setTabIsOn(false)
     },[current,active])
 
     useEffect(() => {
@@ -23,16 +25,22 @@ export default function Table({status,addRow,id,active, complete}) {
         if(!complete) clear()
     }, [complete])
 
-    function arrowMove(e) {
+
+    function arrowMove(e) {;
+        const {value, ariaColIndex} = e.target;
         switch(e.key) {
             case "Backspace":
-                const {value, ariaColIndex} = e.target;
-
-                if(value == "" || value == " ") return; 
-                setCollection(prev => prev - 1);
-
-                if(current != 0) setCurrent(prev => prev - 1)
+                if(value == " ") return;
+                
+                if(current != 0) setCurrent(prev => prev - 1);
+                if(value == "") return;
+                
+                if(collection != 0) setCollection(prev => prev - 1);
                 setChar(prev => ({...prev,[ariaColIndex]:""}));
+                break;
+            case "Tab":
+                setTabIsOn(true);
+                if(current < 4) setCurrent(prev => prev + 1);
                 break;
             case "ArrowLeft":
                 if(current <= 0) return;
@@ -47,7 +55,7 @@ export default function Table({status,addRow,id,active, complete}) {
     function writeChar(e) {
         const {value,ariaColIndex} = e.target; 
         const name = ariaColIndex;
-        if(value === " " || value == "") return;
+        if(value == " " || value == "") return;
     
         setChar(prev => ({...prev,[name]:value}));
         // Collection equal 4 and value different that "" is end of word;
@@ -55,7 +63,7 @@ export default function Table({status,addRow,id,active, complete}) {
             const obj = {...char, [name]:value};
             addRow(obj)
         };
-        setCurrent(prev => prev + 1)
+        if(current < 4) setCurrent(prev => prev + 1);
         setCollection(prev => prev + 1);
     }
 
